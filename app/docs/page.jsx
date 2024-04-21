@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Particles from "@/components/particles";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 
 export default function Page() {
   const [semester1Documents, setSemester1Documents] = useState([]);
@@ -63,16 +71,16 @@ export default function Page() {
             alignItems: "center",
           }}
         >
-          <div class="banter-loader">
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
-            <div class="banter-loader__box"></div>
+          <div className="banter-loader">
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
+            <div className="banter-loader__box"></div>
           </div>
         </div>
       ) : (
@@ -84,69 +92,86 @@ export default function Page() {
           <h1 className="mb-4 pt-10 text-center text-4xl font-bold">
             Professional Skills Portfolio
           </h1>
-          <Tabs
-            defaultValue="sem2"
-            className="flex flex-col items-center justify-center"
-          >
-            <TabsList>
-              <TabsTrigger value="sem1">Semester 1</TabsTrigger>
-              <TabsTrigger value="sem2">Semester 2</TabsTrigger>
-            </TabsList>
-            <TabsContent value="sem1">
-              <div className="mt-5 grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {semester1Documents.map((document, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center duration-200 hover:scale-105"
-                  >
-                    <button onClick={() => openModal(document)}>
-                      <Image
-                        src={document.thumbnail || thumbnailPlaceholder}
-                        alt={document.documentName}
-                        width={400}
-                        height={500}
-                        quality={100}
-                        className="h-[340px] w-[240px] cursor-pointer rounded-md object-cover"
-                      />
-                    </button>
-                    <a
-                      className="w-[240px] truncate text-center text-lg font-bold"
-                      href={document.pdfLink}
-                    >
-                      {document.documentName}
-                    </a>
-                  </div>
-                ))}
+          <div className="flex">
+            <Tabs
+              defaultValue="sem2"
+              className="flex flex-col items-center justify-center"
+            >
+              <div className="flex gap-2">
+                <Select>
+                  <SelectTrigger className="w-[120px]">
+                    <SelectValue placeholder="Selecteer Jaar" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem defaultValue value="y1">
+                      Jaar 1
+                    </SelectItem>
+                    <SelectItem value="y2">Jaar 2</SelectItem>
+                    <SelectItem value="y3">Jaar 3</SelectItem>
+                    <SelectItem value="y4">Jaar 4</SelectItem>
+                  </SelectContent>
+                </Select>
+                <TabsList>
+                  <TabsTrigger value="sem1">Semester 1</TabsTrigger>
+                  <TabsTrigger value="sem2">Semester 2</TabsTrigger>
+                </TabsList>
               </div>
-            </TabsContent>
-            <TabsContent value="sem2">
-              <div className="mt-5 grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                {semester2Documents.map((document, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center duration-200 hover:scale-105"
-                  >
-                    <button onClick={() => openModal(document)}>
-                      <Image
-                        src={document.thumbnail || thumbnailPlaceholder}
-                        alt={document.documentName}
-                        width={400}
-                        height={500}
-                        quality={100}
-                        className="h-[340px] w-[240px] cursor-pointer rounded-md object-cover"
-                      />
-                    </button>
-                    <a
-                      className="w-[240px] truncate text-center text-lg font-bold"
-                      href={document.pdfLink}
+              <TabsContent value="sem1">
+                <div className="mt-5 grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                  {semester1Documents.map((document, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center duration-200 hover:scale-105"
                     >
-                      {document.documentName}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
+                      <button onClick={() => openModal(document)}>
+                        <Image
+                          src={document.thumbnail || thumbnailPlaceholder}
+                          alt={document.documentName}
+                          width={400}
+                          height={500}
+                          quality={100}
+                          className="h-[340px] w-[240px] cursor-pointer rounded-md object-cover"
+                        />
+                      </button>
+                      <a
+                        className="w-[240px] truncate text-center text-lg font-bold"
+                        href={document.pdfLink}
+                      >
+                        {document.documentName}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="sem2">
+                <div className="mt-5 grid max-w-7xl grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                  {semester2Documents.map((document, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col items-center justify-center duration-200 hover:scale-105"
+                    >
+                      <button onClick={() => openModal(document)}>
+                        <Image
+                          src={document.thumbnail || thumbnailPlaceholder}
+                          alt={document.documentName}
+                          width={400}
+                          height={500}
+                          quality={100}
+                          className="h-[340px] w-[240px] cursor-pointer rounded-md object-cover"
+                        />
+                      </button>
+                      <a
+                        className="w-[240px] truncate text-center text-lg font-bold"
+                        href={document.pdfLink}
+                      >
+                        {document.documentName}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
           <div className="flex flex-col items-center justify-center pt-12"></div>
           {selectedDocument && (
             <div
